@@ -53,11 +53,20 @@ int main() { // use loop
 	//  main() should consist of a series of controlled calls to your functions that
 	//  orchestrate the top-level behavior of the simulation.
 
+	InitializeBoard(slidingBoard);
+
 	return 0;
 }
 
 void InitializeBoard(int theBoard[NUM_ROWS][NUM_COLS]) {
-	// YOUR IMPLEMENTATION GOES HERE...
+	int i, j;
+	int x = int(0);
+	for (i = 0; i < NUM_ROWS; i++) {
+		for (j = 0; j < NUM_COLS; j++) {
+			theBoard[i][j] = x;
+			x++;
+		}
+	}
 }
 
 void PrintBoard(int theBoard[NUM_ROWS][NUM_COLS]) {

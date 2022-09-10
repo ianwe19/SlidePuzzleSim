@@ -2,7 +2,6 @@
 
 #include <iostream>				// for general IO
 #include <iomanip>				// for setw()
-using namespace std;
 
 #include <string.h>				// for strcpy()
 #include <conio.h>				// for getche()
@@ -39,7 +38,7 @@ bool isBoardSolved(int[NUM_ROWS][NUM_COLS]);		// indicates if the board is in th
 void printTheRainbow();								// A little reminder on how to do color with the Windows API.
 
 
-int main() {
+int main() { // use loop
 	// Declarations
 	int slidingBoard[NUM_ROWS][NUM_COLS];		// the board that holds the sliding tiles
 	char keyStroke = ' ';						// holds the user's keystrokes as they come in
@@ -54,8 +53,6 @@ int main() {
 	//  main() should consist of a series of controlled calls to your functions that
 	//  orchestrate the top-level behavior of the simulation.
 
-	// Exit
-	_getch();
 	return 0;
 }
 
@@ -67,12 +64,12 @@ void PrintBoard(int theBoard[NUM_ROWS][NUM_COLS]) {
 	// YOUR IMPLEMENTATION GOES HERE...
 }
 
-bool slideTile(int theBoard[NUM_ROWS][NUM_COLS], int slideDirection) {
+bool slideTile(int theBoard[NUM_ROWS][NUM_COLS], int slideDirection) { // return true if successfull move
 	// YOUR IMPLEMENTATION GOES HERE...
 	return false;
 }
 
-void scrambleBoard(int theBoard[NUM_ROWS][NUM_COLS]) {
+void scrambleBoard(int theBoard[NUM_ROWS][NUM_COLS]) { // 10k - 100k random legal moves
 	// YOUR IMPLEMENTATION GOES HERE...
 }
 
@@ -90,9 +87,9 @@ void printTheRainbow() {
 	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
 	// exhaustively print the colors
-	cout << left;
+	std::cout << std::left;
 	for (currentColor = 0; currentColor <= 255; currentColor++) {
 		SetConsoleTextAttribute(hConsole, currentColor);
-		cout << setw(5) << currentColor << "Look at the pretty COLORS!" << endl;
+		std::cout << std::setw(5) << currentColor << "Look at the pretty COLORS!\n";
 	}
 }

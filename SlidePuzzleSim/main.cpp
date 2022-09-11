@@ -66,6 +66,10 @@ int main() { // use loop
 	scrambleBoard(slidingBoard);
 	PrintBoard(slidingBoard);
 	
+	if (isBoardSolved(slidingBoard)) {
+		std::cout << "\nboard is solved\n";
+		PrintBoard(slidingBoard);
+	}
 
 	return 0;
 }
@@ -177,8 +181,19 @@ void scrambleBoard(int theBoard[NUM_ROWS][NUM_COLS]) { // 10k - 100k random lega
 }
 
 bool isBoardSolved(int amISolved[NUM_ROWS][NUM_COLS]) {
-	// YOUR IMPLEMENTATION GOES HERE...
-	return false;
+	int i, j;
+	int counter = int(1);
+
+	for (i = 0; i < NUM_ROWS; i++) {
+		for (j = 0; j < NUM_COLS; j++) {
+			if (amISolved[i][j] != counter) {
+				return false;
+				break;
+			}
+			counter++;
+		}
+	}
+	return true;
 }
 
 // EXTRAS

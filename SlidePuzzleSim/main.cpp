@@ -15,6 +15,7 @@
 #define NUM_ROWS		3		// should not be changed for this solution
 #define NUM_COLS		3		// should not be changed for this soultion
 #define MAX_NUM         NUM_ROWS * NUM_COLS // highest number on board to be changed to *
+#define NUM_SCRAMBLE    1000000 // number of times to scramble board
 
 #define PIVOT -1				// used to mark the pivot spot (blank area) on the puzzle
 #define PIVOT_SYMBOL	"*"		// used to show the pivot location when drawing the board
@@ -62,6 +63,9 @@ int main() { // use loop
 	PrintBoard(slidingBoard);
 	slideTile(slidingBoard, SLIDE_UP);
 	PrintBoard(slidingBoard);
+	scrambleBoard(slidingBoard);
+	PrintBoard(slidingBoard);
+	
 
 	return 0;
 }
@@ -90,13 +94,15 @@ void PrintBoard(int theBoard[NUM_ROWS][NUM_COLS]) {
 		}
 		std::cout << "\n";
 	}
+	std::cout << "\n";
 }
 
 bool slideTile(int theBoard[NUM_ROWS][NUM_COLS], int slideDirection) { // return true if successful move
 	int i, j;                                                          // TODO need to verify legal move
-	int* spacePos = NULL;
+	int* spacePos = NULL; // unused so far
 	int spaceRow = int(NUM_ROWS);
 	int spaceCol = int(NUM_COLS);
+	bool isLegal = false;
 
 	for (i = 0; i < NUM_ROWS; i++) {
 		for (j = 0; j < NUM_COLS; j++) {
@@ -106,6 +112,19 @@ bool slideTile(int theBoard[NUM_ROWS][NUM_COLS], int slideDirection) { // return
 				spaceCol = j;
 			}
 		}
+	}
+
+	if (spaceRow == NUM_ROWS - 1 && slideDirection == SLIDE_DOWN) {
+		slideDirection = UNSET;
+	}
+	else if (spaceRow == 0 && slideDirection == SLIDE_UP) {
+		slideDirection = UNSET;
+	}
+	else if (spaceCol == NUM_COLS - 1 && slideDirection == SLIDE_RIGHT) {
+		slideDirection = UNSET;
+	}
+	else if (spaceCol == 0 && slideDirection == SLIDE_LEFT) {
+		slideDirection = UNSET;
 	}
 
 	switch (slideDirection) {
@@ -125,18 +144,22 @@ bool slideTile(int theBoard[NUM_ROWS][NUM_COLS], int slideDirection) { // return
 			theBoard[spaceRow][spaceCol] = theBoard[spaceRow][spaceCol + 1];
 			theBoard[spaceRow][spaceCol + 1] = MAX_NUM;
 			break;
+		case UNSET       :
+			return false;
 	}
-	return false;
+	return true;
 }
 
 void scrambleBoard(int theBoard[NUM_ROWS][NUM_COLS]) { // 10k - 100k random legal moves
 	int rng = int(0);
+	int i = int(0);
 
-	srand(time(NULL));
+	while (i < NUM_SCRAMBLE) {
+		srand(time(NULL));
 
-	rng = rand() % 4 + 1;
+		rng = rand() % 4 + 1;
 
-	switch(rng) {
+		switch (rng) {
 		case 1:
 			slideTile(theBoard, SLIDE_UP);
 			break;
@@ -149,6 +172,8 @@ void scrambleBoard(int theBoard[NUM_ROWS][NUM_COLS]) { // 10k - 100k random lega
 		case 4:
 			slideTile(theBoard, SLIDE_RIGHT);
 			break;
+		}
+		i++;
 	}
 }
 

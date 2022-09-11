@@ -51,6 +51,7 @@ int main() { // use loop
 	int directionCode = UNSET;					// used to build a direction code to be sent to slideTile()
 
 	// Seed the Pseudo-Random Number Generator (system clock)
+	srand(time(NULL));
 
 	// Driver Logic
 	// 1.) This is the part where you show the board, get the moves, process the moves, and re-draw
@@ -60,12 +61,15 @@ int main() { // use loop
 	//  orchestrate the top-level behavior of the simulation.
 
 	InitializeBoard(slidingBoard);
-	PrintBoard(slidingBoard);
-	slideTile(slidingBoard, SLIDE_UP);
-	PrintBoard(slidingBoard);
+
 	scrambleBoard(slidingBoard);
-	PrintBoard(slidingBoard);
+
+	while (isBoardSolved(slidingBoard)) {
+		scrambleBoard(slidingBoard);
+	}
 	
+	PrintBoard(slidingBoard);
+
 	if (isBoardSolved(slidingBoard)) {
 		std::cout << "\nboard is solved\n";
 		PrintBoard(slidingBoard);
@@ -158,7 +162,7 @@ void scrambleBoard(int theBoard[NUM_ROWS][NUM_COLS]) { // 10k - 100k random lega
 	int i = int(0);
 
 	while (i < NUM_SCRAMBLE) {
-		srand(time(NULL));
+		//srand(time(NULL));
 
 		rng = rand() % 4 + 1;
 

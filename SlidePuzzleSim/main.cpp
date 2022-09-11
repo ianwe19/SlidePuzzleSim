@@ -8,6 +8,7 @@
 
 #include <windows.h>			// for COLOR!
 
+
 #define NUM_ROWS		3		// should not be changed for this solution
 #define NUM_COLS		3		// should not be changed for this soultion
 #define MAX_NUM         NUM_ROWS * NUM_COLS // highest number on board to be changed to *
@@ -56,6 +57,8 @@ int main() { // use loop
 
 	InitializeBoard(slidingBoard);
 	PrintBoard(slidingBoard);
+	slideTile(slidingBoard, SLIDE_UP);
+	PrintBoard(slidingBoard);
 
 	return 0;
 }
@@ -87,7 +90,39 @@ void PrintBoard(int theBoard[NUM_ROWS][NUM_COLS]) {
 }
 
 bool slideTile(int theBoard[NUM_ROWS][NUM_COLS], int slideDirection) { // return true if successful move
-	// YOUR IMPLEMENTATION GOES HERE...
+	int i, j;
+	int* spacePos = NULL;
+	int spaceRow = int(NUM_ROWS);
+	int spaceCol = int(NUM_COLS);
+
+	for (i = 0; i < NUM_ROWS; i++) {
+		for (j = 0; j < NUM_COLS; j++) {
+			if (theBoard[i][j] == 9) {
+				spacePos = &theBoard[i][j];
+				spaceRow = i;
+				spaceCol = j;
+			}
+		}
+	}
+
+	switch (slideDirection) {
+		case SLIDE_UP    :
+			theBoard[spaceRow][spaceCol] = theBoard[spaceRow - 1][spaceCol];
+			theBoard[spaceRow - 1][spaceCol] = MAX_NUM;
+			break;
+		case SLIDE_DOWN  :
+			theBoard[spaceRow][spaceCol] = theBoard[spaceRow + 1][spaceCol];
+			theBoard[spaceRow + 1][spaceCol] = MAX_NUM;
+			break;
+		case SLIDE_LEFT  :
+			theBoard[spaceRow][spaceCol] = theBoard[spaceRow][spaceCol - 1];
+			theBoard[spaceRow][spaceCol - 1] = MAX_NUM;
+			break;
+		case SLIDE_RIGHT :
+			theBoard[spaceRow][spaceCol] = theBoard[spaceRow][spaceCol + 1];
+			theBoard[spaceRow][spaceCol + 1] = MAX_NUM;
+			break;
+	}
 	return false;
 }
 

@@ -8,6 +8,9 @@
 
 #include <windows.h>			// for COLOR!
 
+#include <time.h>
+#include <stdlib.h>
+
 
 #define NUM_ROWS		3		// should not be changed for this solution
 #define NUM_COLS		3		// should not be changed for this soultion
@@ -90,7 +93,7 @@ void PrintBoard(int theBoard[NUM_ROWS][NUM_COLS]) {
 }
 
 bool slideTile(int theBoard[NUM_ROWS][NUM_COLS], int slideDirection) { // return true if successful move
-	int i, j;
+	int i, j;                                                          // TODO need to verify legal move
 	int* spacePos = NULL;
 	int spaceRow = int(NUM_ROWS);
 	int spaceCol = int(NUM_COLS);
@@ -127,7 +130,26 @@ bool slideTile(int theBoard[NUM_ROWS][NUM_COLS], int slideDirection) { // return
 }
 
 void scrambleBoard(int theBoard[NUM_ROWS][NUM_COLS]) { // 10k - 100k random legal moves
-	// YOUR IMPLEMENTATION GOES HERE...
+	int rng = int(0);
+
+	srand(time(NULL));
+
+	rng = rand() % 4 + 1;
+
+	switch(rng) {
+		case 1:
+			slideTile(theBoard, SLIDE_UP);
+			break;
+		case 2:
+			slideTile(theBoard, SLIDE_DOWN);
+			break;
+		case 3:
+			slideTile(theBoard, SLIDE_LEFT);
+			break;
+		case 4:
+			slideTile(theBoard, SLIDE_RIGHT);
+			break;
+	}
 }
 
 bool isBoardSolved(int amISolved[NUM_ROWS][NUM_COLS]) {

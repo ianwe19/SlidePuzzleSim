@@ -10,6 +10,7 @@
 
 #define NUM_ROWS		3		// should not be changed for this solution
 #define NUM_COLS		3		// should not be changed for this soultion
+#define MAX_NUM         NUM_ROWS * NUM_COLS // highest number on board to be changed to *
 
 #define PIVOT -1				// used to mark the pivot spot (blank area) on the puzzle
 #define PIVOT_SYMBOL	"*"		// used to show the pivot location when drawing the board
@@ -74,7 +75,12 @@ void PrintBoard(int theBoard[NUM_ROWS][NUM_COLS]) {
 	int i, j;
 	for (i = 0; i < NUM_ROWS; i++) {
 		for (j = 0; j < NUM_COLS; j++) {
-			std::cout << std::setw(3) << theBoard[i][j];
+			if (theBoard[i][j] == MAX_NUM) {
+				std::cout << std::setw(3) << "*";
+			}
+			else {
+				std::cout << std::setw(3) << theBoard[i][j];
+			}
 		}
 		std::cout << "\n";
 	}

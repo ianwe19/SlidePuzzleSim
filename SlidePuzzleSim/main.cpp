@@ -102,7 +102,6 @@ bool slideTile(int theBoard[NUM_ROWS][NUM_COLS], int slideDirection) { // return
 	int* spacePos = NULL; // unused so far
 	int spaceRow = int(NUM_ROWS);
 	int spaceCol = int(NUM_COLS);
-	bool isLegal = false;
 
 	for (i = 0; i < NUM_ROWS; i++) {
 		for (j = 0; j < NUM_COLS; j++) {
@@ -114,7 +113,7 @@ bool slideTile(int theBoard[NUM_ROWS][NUM_COLS], int slideDirection) { // return
 		}
 	}
 
-	if (spaceRow == NUM_ROWS - 1 && slideDirection == SLIDE_DOWN) {
+	if (spaceRow == NUM_ROWS - 1 && slideDirection == SLIDE_DOWN) { // detect and prevent illegal moves
 		slideDirection = UNSET;
 	}
 	else if (spaceRow == 0 && slideDirection == SLIDE_UP) {
@@ -144,7 +143,7 @@ bool slideTile(int theBoard[NUM_ROWS][NUM_COLS], int slideDirection) { // return
 			theBoard[spaceRow][spaceCol] = theBoard[spaceRow][spaceCol + 1];
 			theBoard[spaceRow][spaceCol + 1] = MAX_NUM;
 			break;
-		case UNSET       :
+		case UNSET       : // unset if illegal move
 			return false;
 	}
 	return true;

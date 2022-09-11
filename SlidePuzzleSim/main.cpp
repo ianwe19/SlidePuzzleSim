@@ -97,7 +97,7 @@ bool slideTile(int theBoard[NUM_ROWS][NUM_COLS], int slideDirection) { // return
 
 	for (i = 0; i < NUM_ROWS; i++) {
 		for (j = 0; j < NUM_COLS; j++) {
-			if (theBoard[i][j] == 9) {
+			if (theBoard[i][j] == MAX_NUM) {
 				spacePos = &theBoard[i][j];
 				spaceRow = i;
 				spaceCol = j;

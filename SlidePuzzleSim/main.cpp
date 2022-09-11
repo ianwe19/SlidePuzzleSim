@@ -61,7 +61,7 @@ int main() { // use loop
 
 void InitializeBoard(int theBoard[NUM_ROWS][NUM_COLS]) {
 	int i, j;
-	int x = int(0);
+	int x = int(1);
 	for (i = 0; i < NUM_ROWS; i++) {
 		for (j = 0; j < NUM_COLS; j++) {
 			theBoard[i][j] = x;
@@ -80,7 +80,7 @@ void PrintBoard(int theBoard[NUM_ROWS][NUM_COLS]) {
 	}
 }
 
-bool slideTile(int theBoard[NUM_ROWS][NUM_COLS], int slideDirection) { // return true if successfull move
+bool slideTile(int theBoard[NUM_ROWS][NUM_COLS], int slideDirection) { // return true if successful move
 	// YOUR IMPLEMENTATION GOES HERE...
 	return false;
 }

@@ -54,6 +54,7 @@ int main() { // use loop
 	//  orchestrate the top-level behavior of the simulation.
 
 	InitializeBoard(slidingBoard);
+	PrintBoard(slidingBoard);
 
 	return 0;
 }
@@ -70,7 +71,13 @@ void InitializeBoard(int theBoard[NUM_ROWS][NUM_COLS]) {
 }
 
 void PrintBoard(int theBoard[NUM_ROWS][NUM_COLS]) {
-	// YOUR IMPLEMENTATION GOES HERE...
+	int i, j;
+	for (i = 0; i < NUM_ROWS; i++) {
+		for (j = 0; j < NUM_COLS; j++) {
+			std::cout << std::setw(3) << theBoard[i][j];
+		}
+		std::cout << "\n";
+	}
 }
 
 bool slideTile(int theBoard[NUM_ROWS][NUM_COLS], int slideDirection) { // return true if successfull move

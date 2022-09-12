@@ -76,26 +76,31 @@ int main() { // use loop
 		
 		PrintBoard(slidingBoard);
 
-		while (1) {
+		while (directionCode == UNSET) {
 			std::cout << "Input swap direction with WASD\r";
 			keyStroke = _getch();
 			
 			switch (keyStroke) {
 				case 'w' :
 					directionCode = SLIDE_UP;
+					slideTile(slidingBoard, SLIDE_UP);
 					break;
 				case 'a' :
 					directionCode = SLIDE_LEFT;
+					slideTile(slidingBoard, SLIDE_LEFT);
 					break;
 				case 's' :
 					directionCode = SLIDE_DOWN;
+					slideTile(slidingBoard, SLIDE_DOWN);
 					break;
 				case 'd' :
 					directionCode = SLIDE_RIGHT;
+					slideTile(slidingBoard, SLIDE_RIGHT);
 					break;
 				default  :
 					directionCode = UNSET;
 			}
+
 		}
 
 		if (isBoardSolved(slidingBoard)) {
@@ -192,8 +197,6 @@ void scrambleBoard(int theBoard[NUM_ROWS][NUM_COLS]) { // 10k - 100k random lega
 	int i = int(0);
 
 	while (i < NUM_SCRAMBLE) {
-		//srand(time(NULL));
-
 		rng = rand() % 4 + 1;
 
 		switch (rng) {

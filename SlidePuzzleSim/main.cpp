@@ -69,7 +69,7 @@ int main() { // use loop
 	}
 
 	int jank = 0;
-	std::cout << "please enter not an int so !cin will work";
+	std::cout << "please enter not an int so !cin will work"; // TODO please improve this
 	std::cin >> jank;
 
 	while(1) {
@@ -136,7 +136,7 @@ void PrintBoard(int theBoard[NUM_ROWS][NUM_COLS]) {
 }
 
 bool slideTile(int theBoard[NUM_ROWS][NUM_COLS], int slideDirection) { // return true if successful move
-	int i, j;                                                          // TODO need to verify legal move
+	int i, j;
 	int* spacePos = NULL; // unused so far
 	int spaceRow = int(NUM_ROWS);
 	int spaceCol = int(NUM_COLS);

@@ -67,12 +67,21 @@ int main() { // use loop
 	while (isBoardSolved(slidingBoard)) {
 		scrambleBoard(slidingBoard);
 	}
-	
-	PrintBoard(slidingBoard);
 
-	if (isBoardSolved(slidingBoard)) {
-		std::cout << "\nboard is solved\n";
+	while(1) {
+		
 		PrintBoard(slidingBoard);
+
+		while (!std::cin) {
+			std::cout << "Input swap direction with WASD\n";
+			std::cin >> keyStroke;
+		}
+
+		if (isBoardSolved(slidingBoard)) {
+			std::cout << "\nboard is solved\n";
+			PrintBoard(slidingBoard);
+			break;
+		}
 	}
 
 	return 0;

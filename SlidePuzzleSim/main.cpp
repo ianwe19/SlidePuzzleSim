@@ -69,9 +69,11 @@ int main() { // use loop
 	int jank = 0;
 	std::cout << "please input a non-int so !cin will work"; // TODO please improve this
 	std::cin >> jank;
+	system("cls");
 
 	while(1) {
-		
+		directionCode = UNSET;
+
 		PrintBoard(slidingBoard);
 
 		while (directionCode == UNSET) {                       // input loop
@@ -106,6 +108,7 @@ int main() { // use loop
 			PrintBoard(slidingBoard);
 			break;
 		}
+		system("cls");
 	}
 
 	return 0;

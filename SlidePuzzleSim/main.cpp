@@ -75,7 +75,7 @@ int main() { // use loop
 		PrintBoard(slidingBoard);
 
 		while (directionCode == UNSET) {                       // input loop
-			std::cout << "Input swap direction with WASD\r";
+			std::cout << "Input swap direction with WASD, or B to solve it with highly advanced AI algorithms\r";
 			keyStroke = _getch();
 			
 			switch (keyStroke) {
@@ -97,10 +97,12 @@ int main() { // use loop
 					break;
 				case 'b' :
 					while (!isBoardSolved(slidingBoard)) {
-						system("cls");
 						bruteForce(slidingBoard);
-						PrintBoard(slidingBoard);
 					}
+					system("cls");
+					//PrintBoard(slidingBoard); // REMOVE THIS LATER
+					directionCode = 10;  // REMOVE THIS LATER
+					break;
 				default  :
 					directionCode = UNSET;
 			}
@@ -109,8 +111,8 @@ int main() { // use loop
 		system("cls");
 
 		if (isBoardSolved(slidingBoard)) {                    // win
-			std::cout << "\nboard is solved\n";
 			PrintBoard(slidingBoard);
+			std::cout << "\nboard is solved";
 			break;
 		}
 	}
@@ -256,6 +258,7 @@ void printTheRainbow() {
 
 void bruteForce(int theBoard[NUM_ROWS][NUM_COLS]) { //because i am lazy
 	switch (rand() % 4 + 1) {
+
 	case 1:
 		slideTile(theBoard, SLIDE_UP);
 		break;

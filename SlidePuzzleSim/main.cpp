@@ -102,13 +102,13 @@ int main() { // use loop
 			}
 
 		}
+		system("cls");
 
-		if (isBoardSolved(slidingBoard)) {
+		if (isBoardSolved(slidingBoard)) {                    // win
 			std::cout << "\nboard is solved\n";
 			PrintBoard(slidingBoard);
 			break;
 		}
-		system("cls");
 	}
 
 	return 0;

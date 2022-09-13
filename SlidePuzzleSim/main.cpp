@@ -241,22 +241,6 @@ bool isBoardSolved(int amISolved[NUM_ROWS][NUM_COLS]) {
 	return true;
 }
 
-// EXTRAS
-void printTheRainbow() {
-	int currentColor = 7;
-
-	// get the handle for the console
-	HANDLE hConsole;
-	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-
-	// exhaustively print the colors
-	std::cout << std::left;
-	for (currentColor = 0; currentColor <= 255; currentColor++) {
-		SetConsoleTextAttribute(hConsole, currentColor);
-		std::cout << std::setw(5) << currentColor << "Look at the pretty COLORS!\n";
-	}
-}
-
 void randomMove(int theBoard[NUM_ROWS][NUM_COLS]) { // because i am lazy, also this doesnt work sometimes for brute force solving
 	switch (rand() % 4 + 1) {                       // possibly because some boards are unsolvable?
 

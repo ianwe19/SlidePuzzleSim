@@ -67,15 +67,16 @@ int main() { // use loop
 		scrambleBoard(slidingBoard);
 	}
 
-	system("cls"); // probably bad practice
+	//system("cls"); // probably bad practice
 
 	while(1) {
 		directionCode = UNSET;
 
 		PrintBoard(slidingBoard);
 
-		while (directionCode == UNSET) {                       // input loop
-			std::cout << "Input swap direction with WASD, or B to solve it with highly advanced AI algorithms\r";
+		// input loop
+		while (directionCode == UNSET) {
+			std::cout << "Input swap direction with WASD, or B to solve with highly advanced AI algorithms\r";
 			keyStroke = _getch();
 			
 			switch (keyStroke) {
@@ -100,7 +101,7 @@ int main() { // use loop
 						randomMove(slidingBoard);
 					}
 					system("cls");
-					directionCode = 10;
+					directionCode = 999;
 					break;
 				default  :
 					directionCode = UNSET;
@@ -109,7 +110,8 @@ int main() { // use loop
 		}
 		system("cls");
 
-		if (isBoardSolved(slidingBoard)) {                    // win
+		// win condition check
+		if (isBoardSolved(slidingBoard)) {                    
 			PrintBoard(slidingBoard);
 			std::cout << "\nboard is solved";
 			break;
@@ -240,7 +242,7 @@ void printTheRainbow() {
 }
 
 void randomMove(int theBoard[NUM_ROWS][NUM_COLS]) { // because i am lazy, also this doesnt work sometimes for brute force solving
-	switch (rand() % 4 + 1) {
+	switch (rand() % 4 + 1) {                       // possibly because some boards are unsolvable?
 
 	case 1:
 		slideTile(theBoard, SLIDE_UP);

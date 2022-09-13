@@ -62,21 +62,19 @@ int main() { // use loop
 
 	InitializeBoard(slidingBoard);
 
-	scrambleBoard(slidingBoard);
-
 	while (isBoardSolved(slidingBoard)) { // to make sure the scrambled board isnt a solved board
 		scrambleBoard(slidingBoard);
 	}
 
 	int jank = 0;
-	std::cout << "please enter not an int so !cin will work"; // TODO please improve this
+	std::cout << "please input a non-int so !cin will work"; // TODO please improve this
 	std::cin >> jank;
 
 	while(1) {
 		
 		PrintBoard(slidingBoard);
 
-		while (directionCode == UNSET) {
+		while (directionCode == UNSET) {                       // input loop
 			std::cout << "Input swap direction with WASD\r";
 			keyStroke = _getch();
 			

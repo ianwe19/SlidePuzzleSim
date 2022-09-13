@@ -39,7 +39,7 @@ void PrintBoard(int[NUM_ROWS][NUM_COLS]);
 bool slideTile(int[NUM_ROWS][NUM_COLS], int);
 void scrambleBoard(int[NUM_ROWS][NUM_COLS]);		// depends upon slideTile()
 bool isBoardSolved(int[NUM_ROWS][NUM_COLS]);		// indicates if the board is in the SOLVED state
-void bruteForce(int[NUM_ROWS][NUM_COLS]);
+void randomMove(int[NUM_ROWS][NUM_COLS]);
 
 // DEVELOPMENT EXTRAS
 void printTheRainbow();								// A little reminder on how to do color with the Windows API.
@@ -97,11 +97,10 @@ int main() { // use loop
 					break;
 				case 'b' :
 					while (!isBoardSolved(slidingBoard)) {
-						bruteForce(slidingBoard);
+						randomMove(slidingBoard);
 					}
 					system("cls");
-					//PrintBoard(slidingBoard); // REMOVE THIS LATER
-					directionCode = 10;  // REMOVE THIS LATER
+					directionCode = 10;
 					break;
 				default  :
 					directionCode = UNSET;
@@ -200,26 +199,10 @@ bool slideTile(int theBoard[NUM_ROWS][NUM_COLS], int slideDirection) { // return
 }
 
 void scrambleBoard(int theBoard[NUM_ROWS][NUM_COLS]) { // 10k - 100k random legal moves
-	int rng = int(0);
 	int i = int(0);
 
 	while (i < NUM_SCRAMBLE) {
-		rng = rand() % 4 + 1;
-
-		switch (rng) {
-		case 1:
-			slideTile(theBoard, SLIDE_UP);
-			break;
-		case 2:
-			slideTile(theBoard, SLIDE_DOWN);
-			break;
-		case 3:
-			slideTile(theBoard, SLIDE_LEFT);
-			break;
-		case 4:
-			slideTile(theBoard, SLIDE_RIGHT);
-			break;
-		}
+		randomMove(theBoard); // feels wrong but might as well just use this
 		i++;
 	}
 }
@@ -256,7 +239,7 @@ void printTheRainbow() {
 	}
 }
 
-void bruteForce(int theBoard[NUM_ROWS][NUM_COLS]) { //because i am lazy
+void randomMove(int theBoard[NUM_ROWS][NUM_COLS]) { // because i am lazy, also this doesnt work sometimes for brute force solving
 	switch (rand() % 4 + 1) {
 
 	case 1:

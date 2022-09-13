@@ -135,14 +135,29 @@ void InitializeBoard(int theBoard[NUM_ROWS][NUM_COLS]) {
 
 void PrintBoard(int theBoard[NUM_ROWS][NUM_COLS]) {
 	int i, j;
+	int counter = int(1);
+
+	// get the handle for the console
+	HANDLE hConsole;
+	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleTextAttribute(hConsole, COLOR_GREEN);
+
 	for (i = 0; i < NUM_ROWS; i++) {
 		for (j = 0; j < NUM_COLS; j++) {
 			if (theBoard[i][j] == MAX_NUM) {
-				std::cout << std::setw(3) << "*";
+				std::cout << std::setw(3) << PIVOT_SYMBOL;
 			}
 			else {
+				if (theBoard[i][j] == counter) {
+					SetConsoleTextAttribute(hConsole, COLOR_GREEN);
+				}
+				else {
+					SetConsoleTextAttribute(hConsole, COLOR_RED);
+				}
 				std::cout << std::setw(3) << theBoard[i][j];
+				SetConsoleTextAttribute(hConsole, COLOR_DEFAULT);
 			}
+			counter++;
 		}
 		std::cout << "\n";
 	}

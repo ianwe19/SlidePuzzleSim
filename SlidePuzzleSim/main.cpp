@@ -66,9 +66,9 @@ int main() { // use loop
 		scrambleBoard(slidingBoard);
 	}
 
-	int jank = 0;
-	std::cout << "please input a non-int so !cin will work"; // TODO please improve this
-	std::cin >> jank;
+	//int jank = 0;
+	//std::cout << "please input a non-int so !cin will work"; // TODO please improve this
+	//std::cin >> jank;
 	system("cls");
 
 	while(1) {

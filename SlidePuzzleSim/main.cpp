@@ -39,6 +39,7 @@ void PrintBoard(int[NUM_ROWS][NUM_COLS]);
 bool slideTile(int[NUM_ROWS][NUM_COLS], int);
 void scrambleBoard(int[NUM_ROWS][NUM_COLS]);		// depends upon slideTile()
 bool isBoardSolved(int[NUM_ROWS][NUM_COLS]);		// indicates if the board is in the SOLVED state
+void bruteForce(int[NUM_ROWS][NUM_COLS]);
 
 // DEVELOPMENT EXTRAS
 void printTheRainbow();								// A little reminder on how to do color with the Windows API.
@@ -66,10 +67,7 @@ int main() { // use loop
 		scrambleBoard(slidingBoard);
 	}
 
-	//int jank = 0;
-	//std::cout << "please input a non-int so !cin will work"; // TODO please improve this
-	//std::cin >> jank;
-	system("cls");
+	system("cls"); // probably bad practice
 
 	while(1) {
 		directionCode = UNSET;
@@ -97,6 +95,12 @@ int main() { // use loop
 					directionCode = SLIDE_RIGHT;
 					slideTile(slidingBoard, SLIDE_RIGHT);
 					break;
+				case 'b' :
+					while (!isBoardSolved(slidingBoard)) {
+						system("cls");
+						bruteForce(slidingBoard);
+						PrintBoard(slidingBoard);
+					}
 				default  :
 					directionCode = UNSET;
 			}
@@ -247,5 +251,22 @@ void printTheRainbow() {
 	for (currentColor = 0; currentColor <= 255; currentColor++) {
 		SetConsoleTextAttribute(hConsole, currentColor);
 		std::cout << std::setw(5) << currentColor << "Look at the pretty COLORS!\n";
+	}
+}
+
+void bruteForce(int theBoard[NUM_ROWS][NUM_COLS]) { //because i am lazy
+	switch (rand() % 4 + 1) {
+	case 1:
+		slideTile(theBoard, SLIDE_UP);
+		break;
+	case 2:
+		slideTile(theBoard, SLIDE_DOWN);
+		break;
+	case 3:
+		slideTile(theBoard, SLIDE_LEFT);
+		break;
+	case 4:
+		slideTile(theBoard, SLIDE_RIGHT);
+		break;
 	}
 }

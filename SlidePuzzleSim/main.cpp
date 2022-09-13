@@ -43,9 +43,6 @@ bool isBoardSolved(int[NUM_ROWS][NUM_COLS]);		// indicates if the board is in th
 void randomMove(int[NUM_ROWS][NUM_COLS]);
 void inputLoop(int theBoard[NUM_ROWS][NUM_COLS], int keyStroke, int directionCode);
 
-// DEVELOPMENT EXTRAS
-void printTheRainbow();								// A little reminder on how to do color with the Windows API.
-
 
 int main() { // use loop
 	// Declarations
@@ -82,6 +79,7 @@ int main() { // use loop
 	return 0;
 }
 
+
 void InitializeBoard(int theBoard[NUM_ROWS][NUM_COLS]) {
 	int i, j;
 	int x = int(1);
@@ -92,6 +90,7 @@ void InitializeBoard(int theBoard[NUM_ROWS][NUM_COLS]) {
 		}
 	}
 }
+
 
 void PrintBoard(int theBoard[NUM_ROWS][NUM_COLS]) {
 	int i, j;
@@ -123,6 +122,7 @@ void PrintBoard(int theBoard[NUM_ROWS][NUM_COLS]) {
 	}
 	std::cout << "\n";
 }
+
 
 bool slideTile(int theBoard[NUM_ROWS][NUM_COLS], int slideDirection) { // return true if successful move
 	int i, j;
@@ -176,6 +176,7 @@ bool slideTile(int theBoard[NUM_ROWS][NUM_COLS], int slideDirection) { // return
 	return true;
 }
 
+
 void scrambleBoard(int theBoard[NUM_ROWS][NUM_COLS]) { // 10k - 100k random legal moves
 	int i = int(0);
 
@@ -184,6 +185,7 @@ void scrambleBoard(int theBoard[NUM_ROWS][NUM_COLS]) { // 10k - 100k random lega
 		i++;
 	}
 }
+
 
 bool isBoardSolved(int amISolved[NUM_ROWS][NUM_COLS]) {
 	int i, j;
@@ -200,6 +202,7 @@ bool isBoardSolved(int amISolved[NUM_ROWS][NUM_COLS]) {
 	}
 	return true;
 }
+
 
 void inputLoop(int theBoard[NUM_ROWS][NUM_COLS], int keyStroke, int directionCode) {
 	while (directionCode == UNSET) {
@@ -233,9 +236,9 @@ void inputLoop(int theBoard[NUM_ROWS][NUM_COLS], int keyStroke, int directionCod
 		default:
 			directionCode = UNSET;
 		}
-
 	}
 }
+
 
 void randomMove(int theBoard[NUM_ROWS][NUM_COLS]) { // because i am lazy, also this doesnt work sometimes for brute force solving
 	switch (rand() % 4 + 1) {                       // possibly because some boards are unsolvable?

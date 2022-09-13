@@ -64,7 +64,6 @@ int main() { // use loop
 
 		PrintBoard(slidingBoard);
 
-		// input loop
 		inputLoop(slidingBoard, keyStroke, directionCode);
 		
 		system("cls"); // probably bad

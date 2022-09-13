@@ -3,12 +3,12 @@
 #include <iostream>				// for general IO
 #include <iomanip>				// for setw()
 
-#include <string.h>				// for strcpy()
+#include <string.h>				// for strcpy()   UNUSED
 #include <conio.h>				// for getche()
 
 #include <windows.h>			// for COLOR!
 
-#include <time.h>
+#include <time.h>               // for pseudorandom with time()
 #include <stdlib.h>
 
 
@@ -17,7 +17,7 @@
 #define MAX_NUM         NUM_ROWS * NUM_COLS // highest number on board to be changed to *
 #define NUM_SCRAMBLE    1000000 // number of times to scramble board
 
-#define PIVOT -1				// used to mark the pivot spot (blank area) on the puzzle
+#define PIVOT -1				// used to mark the pivot spot (blank area) on the puzzle   UNUSED
 #define PIVOT_SYMBOL	"*"		// used to show the pivot location when drawing the board
 
 // direction codes (part of the slideTile() interface)
@@ -41,6 +41,7 @@ bool slideTile(int[NUM_ROWS][NUM_COLS], int);
 void scrambleBoard(int[NUM_ROWS][NUM_COLS]);		// depends upon slideTile()
 bool isBoardSolved(int[NUM_ROWS][NUM_COLS]);		// indicates if the board is in the SOLVED state
 void randomMove(int[NUM_ROWS][NUM_COLS]);
+void inputLoop(int theBoard[NUM_ROWS][NUM_COLS], int keyStroke, int directionCode);
 
 // DEVELOPMENT EXTRAS
 void printTheRainbow();								// A little reminder on how to do color with the Windows API.
@@ -55,20 +56,11 @@ int main() { // use loop
 	// Seed the Pseudo-Random Number Generator (system clock)
 	srand(time(NULL));
 
-	// Driver Logic
-	// 1.) This is the part where you show the board, get the moves, process the moves, and re-draw
-	//  the board each time something changes.  This is the core logic of the simulation and
-	//  none of the problem specific calculations should take place in main().  Instead,
-	//  main() should consist of a series of controlled calls to your functions that
-	//  orchestrate the top-level behavior of the simulation.
-
 	InitializeBoard(slidingBoard);
 
 	while (isBoardSolved(slidingBoard)) { // to make sure the scrambled board isnt a solved board
 		scrambleBoard(slidingBoard);
 	}
-
-	//system("cls"); // probably bad practice
 
 	while(1) {
 		directionCode = UNSET;
@@ -76,40 +68,9 @@ int main() { // use loop
 		PrintBoard(slidingBoard);
 
 		// input loop
-		while (directionCode == UNSET) {
-			std::cout << "Input swap direction with WASD, or B to solve with highly advanced AI algorithms\r";
-			keyStroke = _getch();
-			
-			switch (keyStroke) {
-				case 'w' :
-					directionCode = SLIDE_UP;
-					slideTile(slidingBoard, SLIDE_UP);
-					break;
-				case 'a' :
-					directionCode = SLIDE_LEFT;
-					slideTile(slidingBoard, SLIDE_LEFT);
-					break;
-				case 's' :
-					directionCode = SLIDE_DOWN;
-					slideTile(slidingBoard, SLIDE_DOWN);
-					break;
-				case 'd' :
-					directionCode = SLIDE_RIGHT;
-					slideTile(slidingBoard, SLIDE_RIGHT);
-					break;
-				case 'b' :
-					while (!isBoardSolved(slidingBoard)) {
-						randomMove(slidingBoard);
-					}
-					system("cls");
-					directionCode = BRUTE_FORCE;
-					break;
-				default  :
-					directionCode = UNSET;
-			}
-
-		}
-		system("cls");
+		inputLoop(slidingBoard, keyStroke, directionCode);
+		
+		system("cls"); // probably bad
 
 		// win condition check
 		if (isBoardSolved(slidingBoard)) {                    
@@ -118,7 +79,6 @@ int main() { // use loop
 			break;
 		}
 	}
-
 	return 0;
 }
 
@@ -239,6 +199,42 @@ bool isBoardSolved(int amISolved[NUM_ROWS][NUM_COLS]) {
 		}
 	}
 	return true;
+}
+
+void inputLoop(int theBoard[NUM_ROWS][NUM_COLS], int keyStroke, int directionCode) {
+	while (directionCode == UNSET) {
+		std::cout << "Input swap direction with WASD, or B to solve with highly advanced AI algorithms\r";
+		keyStroke = _getch();
+
+		switch (keyStroke) {
+		case 'w':
+			directionCode = SLIDE_UP;
+			slideTile(theBoard, SLIDE_UP);
+			break;
+		case 'a':
+			directionCode = SLIDE_LEFT;
+			slideTile(theBoard, SLIDE_LEFT);
+			break;
+		case 's':
+			directionCode = SLIDE_DOWN;
+			slideTile(theBoard, SLIDE_DOWN);
+			break;
+		case 'd':
+			directionCode = SLIDE_RIGHT;
+			slideTile(theBoard, SLIDE_RIGHT);
+			break;
+		case 'b':
+			while (!isBoardSolved(theBoard)) {
+				randomMove(theBoard);
+			}
+			system("cls");
+			directionCode = BRUTE_FORCE;
+			break;
+		default:
+			directionCode = UNSET;
+		}
+
+	}
 }
 
 void randomMove(int theBoard[NUM_ROWS][NUM_COLS]) { // because i am lazy, also this doesnt work sometimes for brute force solving

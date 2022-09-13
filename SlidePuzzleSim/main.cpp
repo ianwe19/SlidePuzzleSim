@@ -103,17 +103,24 @@ void PrintBoard(int theBoard[NUM_ROWS][NUM_COLS]) {
 	for (i = 0; i < NUM_ROWS; i++) {
 		for (j = 0; j < NUM_COLS; j++) {
 			if (theBoard[i][j] == MAX_NUM) {
+				if (counter == MAX_NUM) { // print PIVOT_SYMBOL in proper color
+					SetConsoleTextAttribute(hConsole, COLOR_GREEN);
+				}
+				else {
+					SetConsoleTextAttribute(hConsole, COLOR_RED);
+				}
 				std::cout << std::setw(3) << PIVOT_SYMBOL;
+				SetConsoleTextAttribute(hConsole, COLOR_DEFAULT); // reset color to default
 			}
 			else {
-				if (theBoard[i][j] == counter) {
+				if (theBoard[i][j] == counter) { // print numbers in proper color
 					SetConsoleTextAttribute(hConsole, COLOR_GREEN);
 				}
 				else {
 					SetConsoleTextAttribute(hConsole, COLOR_RED);
 				}
 				std::cout << std::setw(3) << theBoard[i][j];
-				SetConsoleTextAttribute(hConsole, COLOR_DEFAULT);
+				SetConsoleTextAttribute(hConsole, COLOR_DEFAULT); // reset color to default
 			}
 			counter++;
 		}

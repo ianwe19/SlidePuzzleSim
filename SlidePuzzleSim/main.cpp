@@ -66,7 +66,7 @@ int main() {
 
 		totalMoveCount += inputLoop(slidingBoard, keyStroke, directionCode);
 		
-		system("cls");
+		system("cls"); // clear console window
 
 		// win condition check
 		if (isBoardSolved(slidingBoard)) {                    
@@ -202,7 +202,7 @@ bool isBoardSolved(int amISolved[NUM_ROWS][NUM_COLS]) {
 
 
 int inputLoop(int theBoard[NUM_ROWS][NUM_COLS], int keyStroke, int directionCode) {
-	int moveCount = int(0);
+	int moveCounter = int(0);
 	while (directionCode == UNSET) {
 		std::cout << "Input swap direction with WASD, or press B to solve with RNG\r";
 		keyStroke = _getch();
@@ -211,27 +211,27 @@ int inputLoop(int theBoard[NUM_ROWS][NUM_COLS], int keyStroke, int directionCode
 		case 'w':
 			directionCode = SLIDE_UP;
 			slideTile(theBoard, SLIDE_UP);
-			moveCount++;
+			moveCounter++;
 			break;
 		case 'a':
 			directionCode = SLIDE_LEFT;
 			slideTile(theBoard, SLIDE_LEFT);
-			moveCount++;
+			moveCounter++;
 			break;
 		case 's':
 			directionCode = SLIDE_DOWN;
 			slideTile(theBoard, SLIDE_DOWN);
-			moveCount++;
+			moveCounter++;
 			break;
 		case 'd':
 			directionCode = SLIDE_RIGHT;
 			slideTile(theBoard, SLIDE_RIGHT);
-			moveCount++;
+			moveCounter++;
 			break;
 		case 'b':
 			while (!isBoardSolved(theBoard)) {
 				randomMove(theBoard);
-				moveCount++;
+				moveCounter++;
 			}
 			system("cls");
 			directionCode = BRUTE_FORCE;
@@ -240,7 +240,7 @@ int inputLoop(int theBoard[NUM_ROWS][NUM_COLS], int keyStroke, int directionCode
 			directionCode = UNSET;
 		}
 	}
-	return moveCount;
+	return moveCounter;
 }
 
 

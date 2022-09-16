@@ -95,8 +95,7 @@ void PrintBoard(int theBoard[NUM_ROWS][NUM_COLS]) {
 	int i, j;
 	int counter = int(1);
 
-	// get the handle for the console
-	HANDLE hConsole;
+	HANDLE hConsole; // get the handle for the console
 	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	SetConsoleTextAttribute(hConsole, COLOR_GREEN);
 
@@ -130,16 +129,14 @@ void PrintBoard(int theBoard[NUM_ROWS][NUM_COLS]) {
 }
 
 
-bool slideTile(int theBoard[NUM_ROWS][NUM_COLS], int slideDirection) { // return true if successful move
+bool slideTile(int theBoard[NUM_ROWS][NUM_COLS], int slideDirection) { // return true if legal move, false otherwise
 	int i, j;
-	int* spacePos = NULL; // unused so far
 	int spaceRow = int(NUM_ROWS);
 	int spaceCol = int(NUM_COLS);
 
 	for (i = 0; i < NUM_ROWS; i++) {
 		for (j = 0; j < NUM_COLS; j++) {
 			if (theBoard[i][j] == MAX_NUM) {
-				spacePos = &theBoard[i][j];
 				spaceRow = i;
 				spaceCol = j;
 			}
@@ -147,7 +144,7 @@ bool slideTile(int theBoard[NUM_ROWS][NUM_COLS], int slideDirection) { // return
 	}
 
 	if (spaceRow == NUM_ROWS - 1 && slideDirection == SLIDE_DOWN) { // detect and prevent illegal moves
-		slideDirection = UNSET;
+		slideDirection = UNSET;                                     // e.g. if pivot is in top row, prevent moving up
 	}
 	else if (spaceRow == 0 && slideDirection == SLIDE_UP) {
 		slideDirection = UNSET;
@@ -160,34 +157,34 @@ bool slideTile(int theBoard[NUM_ROWS][NUM_COLS], int slideDirection) { // return
 	}
 
 	switch (slideDirection) {
-		case SLIDE_UP    :
+		case SLIDE_UP:
 			theBoard[spaceRow][spaceCol] = theBoard[spaceRow - 1][spaceCol];
 			theBoard[spaceRow - 1][spaceCol] = MAX_NUM;
 			break;
-		case SLIDE_DOWN  :
+		case SLIDE_DOWN:
 			theBoard[spaceRow][spaceCol] = theBoard[spaceRow + 1][spaceCol];
 			theBoard[spaceRow + 1][spaceCol] = MAX_NUM;
 			break;
-		case SLIDE_LEFT  :
+		case SLIDE_LEFT:
 			theBoard[spaceRow][spaceCol] = theBoard[spaceRow][spaceCol - 1];
 			theBoard[spaceRow][spaceCol - 1] = MAX_NUM;
 			break;
-		case SLIDE_RIGHT :
+		case SLIDE_RIGHT:
 			theBoard[spaceRow][spaceCol] = theBoard[spaceRow][spaceCol + 1];
 			theBoard[spaceRow][spaceCol + 1] = MAX_NUM;
 			break;
-		case UNSET       : // unset if illegal move
+		case UNSET: // unset if illegal move
 			return false;
 	}
 	return true;
 }
 
 
-void scrambleBoard(int theBoard[NUM_ROWS][NUM_COLS]) { // 10k - 100k random legal moves
+void scrambleBoard(int theBoard[NUM_ROWS][NUM_COLS]) {
 	int i = int(0);
 
 	while (i < NUM_SCRAMBLE) {
-		randomMove(theBoard); // feels wrong but might as well just use this
+		randomMove(theBoard);
 		i++;
 	}
 }
@@ -212,7 +209,7 @@ bool isBoardSolved(int amISolved[NUM_ROWS][NUM_COLS]) {
 
 void inputLoop(int theBoard[NUM_ROWS][NUM_COLS], int keyStroke, int directionCode) {
 	while (directionCode == UNSET) {
-		std::cout << "Input swap direction with WASD, or B to solve with highly advanced AI algorithms\r";
+		std::cout << "Input swap direction with WASD, or press B to solve with RNG\r";
 		keyStroke = _getch();
 
 		switch (keyStroke) {
@@ -246,8 +243,8 @@ void inputLoop(int theBoard[NUM_ROWS][NUM_COLS], int keyStroke, int directionCod
 }
 
 
-void randomMove(int theBoard[NUM_ROWS][NUM_COLS]) { // because i am lazy, also this doesnt work sometimes for brute force solving
-	switch (rand() % 4 + 1) {                       // possibly because some boards are unsolvable?
+void randomMove(int theBoard[NUM_ROWS][NUM_COLS]) { // because i am lazy, also this doesnt work sometimes
+	switch (rand() % 4 + 1) {
 
 	case 1:
 		slideTile(theBoard, SLIDE_UP);

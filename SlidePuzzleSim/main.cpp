@@ -81,11 +81,11 @@ int main() {
 
 void InitializeBoard(int theBoard[NUM_ROWS][NUM_COLS]) {
 	int i, j;
-	int x = int(1);
+	int counter = int(1);
 	for (i = 0; i < NUM_ROWS; i++) {
 		for (j = 0; j < NUM_COLS; j++) {
-			theBoard[i][j] = x;
-			x++;
+			theBoard[i][j] = counter;
+			counter++;
 		}
 	}
 }

@@ -40,14 +40,15 @@ bool slideTile(int[NUM_ROWS][NUM_COLS], int);
 void scrambleBoard(int[NUM_ROWS][NUM_COLS]);		// depends upon slideTile()
 bool isBoardSolved(int[NUM_ROWS][NUM_COLS]);		// indicates if the board is in the SOLVED state
 void randomMove(int[NUM_ROWS][NUM_COLS]);
-void inputLoop(int theBoard[NUM_ROWS][NUM_COLS], int keyStroke, int directionCode);
+int inputLoop(int theBoard[NUM_ROWS][NUM_COLS], int keyStroke, int directionCode);
 
 
-int main() { // use loop
+int main() {
 	// Declarations
 	int slidingBoard[NUM_ROWS][NUM_COLS];		// the board that holds the sliding tiles
 	char keyStroke = ' ';						// holds the user's keystrokes as they come in
 	int directionCode = UNSET;					// used to build a direction code to be sent to slideTile()
+	int totalMoveCount = int(0);
 
 	// Seed the Pseudo-Random Number Generator (system clock)
 	srand(time(NULL));
@@ -63,14 +64,14 @@ int main() { // use loop
 
 		PrintBoard(slidingBoard);
 
-		inputLoop(slidingBoard, keyStroke, directionCode);
+		totalMoveCount += inputLoop(slidingBoard, keyStroke, directionCode);
 		
-		system("cls"); // probably bad
+		system("cls");
 
 		// win condition check
 		if (isBoardSolved(slidingBoard)) {                    
 			PrintBoard(slidingBoard);
-			std::cout << "\nboard is solved";
+			std::cout << "\nboard is solved\ntook " << totalMoveCount << " moves";
 			break;
 		}
 	}
@@ -200,7 +201,8 @@ bool isBoardSolved(int amISolved[NUM_ROWS][NUM_COLS]) {
 }
 
 
-void inputLoop(int theBoard[NUM_ROWS][NUM_COLS], int keyStroke, int directionCode) {
+int inputLoop(int theBoard[NUM_ROWS][NUM_COLS], int keyStroke, int directionCode) {
+	int moveCount = int(0);
 	while (directionCode == UNSET) {
 		std::cout << "Input swap direction with WASD, or press B to solve with RNG\r";
 		keyStroke = _getch();
@@ -209,22 +211,27 @@ void inputLoop(int theBoard[NUM_ROWS][NUM_COLS], int keyStroke, int directionCod
 		case 'w':
 			directionCode = SLIDE_UP;
 			slideTile(theBoard, SLIDE_UP);
+			moveCount++;
 			break;
 		case 'a':
 			directionCode = SLIDE_LEFT;
 			slideTile(theBoard, SLIDE_LEFT);
+			moveCount++;
 			break;
 		case 's':
 			directionCode = SLIDE_DOWN;
 			slideTile(theBoard, SLIDE_DOWN);
+			moveCount++;
 			break;
 		case 'd':
 			directionCode = SLIDE_RIGHT;
 			slideTile(theBoard, SLIDE_RIGHT);
+			moveCount++;
 			break;
 		case 'b':
 			while (!isBoardSolved(theBoard)) {
 				randomMove(theBoard);
+				moveCount++;
 			}
 			system("cls");
 			directionCode = BRUTE_FORCE;
@@ -233,6 +240,7 @@ void inputLoop(int theBoard[NUM_ROWS][NUM_COLS], int keyStroke, int directionCod
 			directionCode = UNSET;
 		}
 	}
+	return moveCount;
 }
 
 

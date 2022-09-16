@@ -3,7 +3,6 @@
 #include <iostream>				// for general IO
 #include <iomanip>				// for setw()
 
-#include <string.h>				// for strcpy()   UNUSED
 #include <conio.h>				// for getche()
 
 #include <windows.h>			// for COLOR!

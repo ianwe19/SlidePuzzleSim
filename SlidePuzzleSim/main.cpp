@@ -14,10 +14,9 @@
 
 #define NUM_ROWS		3		// should not be changed for this solution
 #define NUM_COLS		3		// should not be changed for this soultion
-#define MAX_NUM         NUM_ROWS * NUM_COLS // highest number on board to be changed to *
+#define PIVOT         NUM_ROWS * NUM_COLS // highest number on board to be changed to *
 #define NUM_SCRAMBLE    1000000 // number of times to scramble board
 
-#define PIVOT -1				// used to mark the pivot spot (blank area) on the puzzle   UNUSED
 #define PIVOT_SYMBOL	"*"		// used to show the pivot location when drawing the board
 
 // direction codes (part of the slideTile() interface)
@@ -101,15 +100,9 @@ void PrintBoard(int theBoard[NUM_ROWS][NUM_COLS]) {
 
 	for (i = 0; i < NUM_ROWS; i++) {
 		for (j = 0; j < NUM_COLS; j++) {
-			if (theBoard[i][j] == MAX_NUM) {
-				if (counter == MAX_NUM) { // print PIVOT_SYMBOL in proper color
-					SetConsoleTextAttribute(hConsole, COLOR_GREEN);
-				}
-				else {
-					SetConsoleTextAttribute(hConsole, COLOR_RED);
-				}
+			if (theBoard[i][j] == PIVOT) {
+				SetConsoleTextAttribute(hConsole, COLOR_DEFAULT);
 				std::cout << std::setw(3) << PIVOT_SYMBOL;
-				SetConsoleTextAttribute(hConsole, COLOR_DEFAULT); // reset color to default
 			}
 			else {
 				if (theBoard[i][j] == counter) { // print numbers in proper color
@@ -159,19 +152,19 @@ bool slideTile(int theBoard[NUM_ROWS][NUM_COLS], int slideDirection) { // return
 	switch (slideDirection) {
 		case SLIDE_UP:
 			theBoard[spaceRow][spaceCol] = theBoard[spaceRow - 1][spaceCol];
-			theBoard[spaceRow - 1][spaceCol] = MAX_NUM;
+			theBoard[spaceRow - 1][spaceCol] = PIVOT;
 			break;
 		case SLIDE_DOWN:
 			theBoard[spaceRow][spaceCol] = theBoard[spaceRow + 1][spaceCol];
-			theBoard[spaceRow + 1][spaceCol] = MAX_NUM;
+			theBoard[spaceRow + 1][spaceCol] = PIVOT;
 			break;
 		case SLIDE_LEFT:
 			theBoard[spaceRow][spaceCol] = theBoard[spaceRow][spaceCol - 1];
-			theBoard[spaceRow][spaceCol - 1] = MAX_NUM;
+			theBoard[spaceRow][spaceCol - 1] = PIVOT;
 			break;
 		case SLIDE_RIGHT:
 			theBoard[spaceRow][spaceCol] = theBoard[spaceRow][spaceCol + 1];
-			theBoard[spaceRow][spaceCol + 1] = MAX_NUM;
+			theBoard[spaceRow][spaceCol + 1] = PIVOT;
 			break;
 		case UNSET: // unset if illegal move
 			return false;

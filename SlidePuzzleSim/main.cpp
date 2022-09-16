@@ -24,7 +24,7 @@
 #define SLIDE_DOWN		2		// pass to slideTile() to trigger DOWN movement
 #define SLIDE_LEFT		3		// pass to slideTile() to trigger LEFT movement
 #define SLIDE_RIGHT		4		// pass to slideTile() to trigger RIGHT movement
-#define BRUTE_FORCE     999
+#define BRUTE_FORCE     999     // pass to inputLoop() to solve with RNG
 
 #define UNSET			-1		// used to arbitrarily indicate an undetermined state in a constuct
 
